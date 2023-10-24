@@ -1,0 +1,2 @@
+# Mathematical Kaleidoscope III: Auxillary Variable Methods
+The repository contains the hand-in for the part on auxillary variable methods of the PhD course mathematical kaleidoscope III at Aalborg University during the fall semester of 2023. 
