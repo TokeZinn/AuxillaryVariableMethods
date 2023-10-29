@@ -1,0 +1,59 @@
+% incl/pre/pkgs.tex : pakker
+% ------------------------------------------------------------------------------
+
+% Basis-pakker -----------------------------------------------------------------
+\usepackage[T1]{fontenc}           
+\usepackage[utf8]{inputenc}        
+\usepackage{babel}                 
+\usepackage{hyperref}              
+\usepackage{xpatch}                
+
+% Matematik-pakker -------------------------------------------------------------
+\usepackage{mathtools}             
+\usepackage{amssymb}               
+\usepackage{amsthm}                
+\usepackage{bbm}                   
+\usepackage{bm}                    
+
+% Figur-pakker -----------------------------------------------------------------
+\usepackage[dvipsnames]{xcolor}    
+\usepackage{graphicx}              
+\usepackage{booktabs}              
+\usepackage{caption}               
+\usepackage{subcaption}            
+\usepackage{tikz} 
+\usepackage{pgfplots}                 
+\usepackage{algorithm}             
+\usepackage[noend]{algpseudocode}  
+\usepackage{listings}              
+
+% Styling-pakker ---------------------------------------------------------------
+\usepackage{microtype}             
+\usepackage{emptypage}             
+\usepackage{fancyhdr}              
+\usepackage{titlesec}              
+\usepackage[margin=3cm]{geometry}  
+\usepackage[toc,page]{appendix}    
+\usepackage[some]{background}      
+\usepackage{fourier}               
+\usepackage{DejaVuSansMono}        
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{backgrounds}
+\usepgfplotslibrary{patchplots}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{%
+ layers/standard/.define layer set={%
+     background,axis background,axis grid,axis ticks,axis lines,axis tick labels,pre main,main,axis descriptions,axis foreground%
+ }{grid style= {/pgfplots/on layer=axis grid},%
+     tick style= {/pgfplots/on layer=axis ticks},%
+     axis line style= {/pgfplots/on layer=axis lines},%
+     label style= {/pgfplots/on layer=axis descriptions},%
+     legend style= {/pgfplots/on layer=axis descriptions},%
+     title style= {/pgfplots/on layer=axis descriptions},%
+     colorbar style= {/pgfplots/on layer=axis descriptions},%
+     ticklabel style= {/pgfplots/on layer=axis tick labels},%
+     axis background@ style={/pgfplots/on layer=axis background},%
+     3d box foreground style={/pgfplots/on layer=axis foreground},%
+     },
+ }

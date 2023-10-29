@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{template}
+\usepackage{array}
+\usepackage{pgfgantt}
+\usepackage{graphicx}
+\usepackage{authblk}
+
+\newcolumntype{F}[1]{%
+    >{\raggedright\arraybackslash\hspace{0pt}}p{#1}}%
+\newcolumntype{T}[1]{%
+    >{\centering\arraybackslash\hspace{0pt}}p{#1}}%
+
+
+\setlength\parindent{0pt}
+\usetikzlibrary{positioning}
+\renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}
+\tikzset{set/.style={draw,circle,inner sep=0pt,align=center}}
+\title{\LARGE Mathematical Kaleidoscope III: \\ \large Auxillary Variable Methods}
+\author[1]{Anders Malthe Westerkam}
+\author[2]{Malte Bødker}
+\author[3]{Toke Christian Zinn}
+\affil[1]{amw@es.aau.dk}
+\affil[2]{maltebn@math.aau.dk}
+\affil[3]{tokecz@math.aau.dk}
+\begin{document}
+\maketitle
+\section*{Introduction}
+Suppose, that for a given random variable $X$, we are interested in computing a certain functional or statistic. For example, we may be interested in computing $\mathbb{E}[f(X)]$ for some appropriate function $f$, for which the expected value is well-defined. Of course, if we can derive the law of $f(X)$ and subsequently compute the expected value, then we have solved the problem. \newline\newline 
+However, certain problems may be hard to solve analytically. In these cases, one often leverages results that yield an appropriate approximation, which is shown to converge. Continuing the example, we could for instance utilize, say, the strong or weak law of large numbers to approximate  $\mathbb{E}[f(X)]$ by $\frac{1}{n} \sum_{i = 1}^n f(X_i)$ for some \textit{sufficiently large} $n\in\N$, where $(X_i)_{i = 1}^n$ are assumed to be independent and identically distributed samples from the same distribution as $X$. Of course, the practical problem is now to obtain samples from the law of $X$. \newline\newline
+For certain distributions, direct sampling methods may be numerically intractable. However, the problem may become numerically feasible by introducing so-called \textit{auxillary variables}. Conditioning on the auxillary variables, sampling the value of interested may be feasible, and one can then recover statistical quantities, such as, e.g., the expected value as above, through marginalization. \newline\newline
+In these notes, we summarise the lectures and exercises presented by Jesper Møller in his lectures on ``\textit{Auxiliary variable methods for distributions with intractable normalizing constants, with a view to simulation-based Bayesian inference}''.
+\subsection*{Notation}
+Throughout the text, we assume that $S$ is a \textit{finite set}. That is, $|S| = n$ for some $n \in \mathbb{N}$, where $|\cdot|$ denoted the cardinality.\newline\newline
+For each $s \in S$, let $\mathcal{X}_s$ be a countable set. That is, $\mathcal{X}_s$ is either finite or countably infinite; formally there exists a bijection between $\mathcal{X}_s$ and $\mathbb{N}$ or a finite subset thereof. Morever, let 
+\begin{align}\label{eq:product-set}
+    \mathcal{X} = \prod_{s \in S} \mathcal{X}_s.
+\end{align} 
+For each $s \in S$, let $X_s$ be an $\mathcal{X}_{s}$ valued random variable. Finally, by the collection $(X_s)_{s \in S}$ be refer to the random tuple in $\mathcal{X}$ induced by each $X_s$ for $s \in S$.
+\subsection{Point-processes on Finite Sets}
+In the lectures, we define a point-process on a finite set $S$ as a \textit{random set}. Formally, we let $\mathcal{X}_s \equiv \{0,1\}$ for all $s \in S$ and, by extension, the variables $X_s$ are ${0,1}$ valued random variables for all $s \in S$. Then, we define the random set 
+\begin{align}
+    X = \{s \mid X_s = 1\}. 
+\end{align}
+Heuristically, we may think of $X_s$ as a random statement that can be either true or false for each site $s \in S$. Then, the set $X$ is the collection of sites, for which the statement was true. 
+
+
+
+
+%\bibliographystyle{abbrv}
+%bibliography{incl/bib/articles}
+
+\end{document}
