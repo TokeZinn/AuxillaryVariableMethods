@@ -10,13 +10,32 @@ r = 1
 θ(k) = 2 ⋅ k ⋅ π/n 
 
 # Plot the circle 
-plot(border = :none, aspect_ratio=:equal, legend = :topright)
+circle_bijection = plot(border = :none, aspect_ratio=:equal, legend = :topright)
 scatter!([1.3, -1.3, 0, 0], [0, 0, 1.3, -1.3], alpha = 0., label = "")
 for s in S
     scatter!([r ⋅ cos(θ(s))], [r ⋅ sin(θ(s))], color = :white, label = s == first(S) ? L"S" : "")
     annotate!([(r+0.1) ⋅ cos(θ(s))], [(r+0.1) ⋅ sin(θ(s))], text("$s", :black, 8))
 end
 title!("")
+savefig(circle_bijection, "figures/circle_bijection.pdf")
+
+# Circle as a Graph 
+circle_graph = plot(border = :none, aspect_ratio=:equal, legend = :topright)
+scatter!([1.3, -1.3, 0, 0], [0, 0, 1.3, -1.3], alpha = 0., label = "")
+for s in 1:(n-1)
+    plot!([r ⋅ cos(θ(s)), r ⋅ cos(θ(s+1))], [r ⋅ sin(θ(s)), r ⋅ sin(θ(s+1))], color = :black, label = "")
+    scatter!([r ⋅ cos(θ(s))], [r ⋅ sin(θ(s))], color = :white, label = s == first(S) ? L"S" : "")
+
+    annotate!([(r+0.1) ⋅ cos(θ(s))], [(r+0.1) ⋅ sin(θ(s))], text("$s", :black, 8))
+end
+plot!([r ⋅ cos(θ(n)), r ⋅ cos(θ(1))], [r ⋅ sin(θ(n)), r ⋅ sin(θ(1))], color = :black, label = "")
+scatter!([r ⋅ cos(θ(n))], [r ⋅ sin(θ(n))], color = :white, label = "")
+annotate!([(r+0.1) ⋅ cos(θ(n))], [(r+0.1) ⋅ sin(θ(n))], text("$n", :black, 8))
+plot!([r ⋅ cos(θ(n)), r ⋅ cos(θ(1))], [r ⋅ sin(θ(n)), r ⋅ sin(θ(1))])
+title!("")
+savefig(circle_graph, "figures/circle_graph.pdf")
+
+
 
 # Setup Metric 
 d(s::Int, t::Int) =minimum(abs.([s-t,t-s, s+n-t,t+n-s]))
