@@ -1,6 +1,9 @@
 # Packages 
 using Plots
 using Random
+using ProgressMeter
+
+include("setup.jl")
 
 # Setup 
 n = 64
@@ -10,7 +13,7 @@ S = [(i,j) for i ∈ 1:n, j in 1:m]
 norm(s::Tuple{Int,Int}) = sqrt((s[1])^2 + (s[2])^2)
 
 function ~(s::Tuple{Int,Int}, t::Tuple{Int,Int}) 
-    0 < norm(s .- t) ≤ 1 ? (return true) : (return false)
+    0 < norm(s .- t) ≤ sqrt(2) ? (return true) : (return false)
 end
 
 ∂(s::Tuple{Int, Int}) = begin
@@ -32,10 +35,13 @@ x = [rand([-1,1]) for i ∈ 1:n, j ∈ 1:m]
 plot(border = :none, aspect_ratio=:equal, legend = :topright)
 heatmap!(x)
 
-β = 0.1
+β = 1.
 p(xₛ, s; x) = exp(β ⋅ xₛ ⋅ sum(x[t...] for t ∈ ∂(s))) 
-sample(s; x) = begin
-    pₛ = cumsum([p(xₛ, s; x = x) for xₛ in 𝒳ₛ])
+p(xₛ, s; x, β) = exp(β ⋅ xₛ ⋅ sum(x[t...] for t ∈ ∂(s))) 
+
+
+sample(s; x, β) = begin
+    pₛ = cumsum([p(xₛ, s; x = x, β = β) for xₛ in 𝒳ₛ])
     Z = pₛ[end]
     u = Z * rand() 
     
@@ -52,10 +58,9 @@ end
 
 gr()
 x = [rand([-1,1]) for i ∈ 1:n, j ∈ 1:m]
-@gif for i in 1:25
+@showprogress for i in 1:50
     for s in S 
-        x[s...] = sample(s; x = x)
+        x[s...] = sample(s; x = x, β = β)
     end
-    plot(border = :none, aspect_ratio=:equal, legend = :topright)
-    heatmap!(x)
 end
+

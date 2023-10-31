@@ -1,3 +1,5 @@
+% !TEX program = xelatex
+
 \documentclass{article}
 \usepackage{template}
 \usepackage{array}
@@ -158,7 +160,32 @@ The simulation is then carried out as follows:
     \item[(iii)] Sample $Y_1$ as a Poisson process with parameter $\beta_1$ on $S\backslash (Y_{2})_{\oplus R}$.
     \item[(iv)] Alternate points (ii) and (iii).  
 \end{itemize}
-We implement below in the \texttt{Julia} programming language.
+
+\section{Markov Random Fields}
+We now alleviate the need for $\mathcal{X}_s$ to be $\{0,1\}$ in favor of an arbitrary countable space for each $s \in S$. \newline\newline
+In particular, we refer to the vector $(X_s)_{s\in S}$ as a random field, and for simplicity we assume that $\mathbb{P}(X = \{x\}) > 0$ for all $x \in \mathcal{X}$. We are now interested in extending the \textit{Markov} property. In the classical theory for Markov chains, there is an implicit ordering and the Markov condition can then be stated as the probability of the next event given all the previous events reduces to the conditioning on the most recent event. However, if $S$ is, say, a lattice, then there is no natural ordering; one could choose the lexicographic ordering, but it is not nessecarily the natural ordering. \newline\newline
+To extend the idea, note that any ordering is also a relation. Hence, we can relax the ordering and replace it with a relation, $\sim$, which satisfies 
+\begin{itemize}
+    \item[(i)] $s \not\sim s$, 
+    \item[(ii)] $s \sim t$ implies $t \sim s$, 
+\end{itemize}
+for all $s,t \in S$. Notice, that (ii) is violated in the case of an ordering; if $s < t$ then clearly we cannot have $s > t$.\newline\newline
+Nonetheless, for each $s \in S$, we can define the set 
+\begin{align*}
+    \partial(s) = \{t \in S \mid s \sim t\},
+\end{align*}
+and subsequently, define the set 
+\begin{align*}
+    \partial = \{\partial(s) \mid s \in S\}.
+\end{align*}
+Then, we say that a random field $(X_s)_{s \in S}$ is a Markov random field, if 
+\begin{align*}
+    \mathbb{P}(X_s = x_s \mid X_t = x_t, t \in S\backslash \{s\}) = \mathbb{P}(X_s = x_s \mid X_t = x_t, t \in \partial(s));
+\end{align*}
+intuitively, this means that $(X_s)_{s\in S}$ is a Markov random field if each $X_s$ depends only on the \textit{related} points $X_t$ for $t \in \partial(s)$, which is advantageous if, say, the cardinality of $S$ is very large, but the cardinality of $\partial(s)$ is relatively small for each $s \in S$.\newline\newline
+For example, in the case of an area interaction 
+
+
 %\bibliographystyle{abbrv}
 %bibliography{incl/bib/articles}
 

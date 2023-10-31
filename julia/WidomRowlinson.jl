@@ -104,10 +104,32 @@ Random.seed!(14)
 Y₁ = 𝒫(S, β₁)
 Y₂ = 𝒫(S \ (Y₁ ⊕ R), β₂)
 
+n₁ = Int64[]
+𝔼n₁ = Float64[]
+
+n₂ = Int64[]
+𝔼n₂ = Float64[]
+
 for _ in 1:N 
     Y₁ = 𝒫(S \ (Y₂ ⊕ R), β₁)
     Y₂ = 𝒫(S \ (Y₁ ⊕ R), β₂)
+
+    push!(n₁, length(Y₁))
+    push!(𝔼n₁, β₁/(1 + β₁)*length(S \ (Y₂ ⊕ R)))
+
+    push!(n₂, length(Y₂))
+    push!(𝔼n₂, β₂/(1 + β₂)*length(S \ (Y₁ ⊕ R)))
 end
+
+fig_1_1 = plot(n₁, color = 1, label = L"|Y_1|", )
+plot!(𝔼n₁, color = :black, label = L"\frac{\beta_1}{1+\beta_1}\cdot |S \backslash (Y_2)_{\oplus R}|", ls = :dash)
+xlabel!("Iteration")
+
+fig_1_2 = plot(n₂, color = 2, label = L"|Y_2|", )
+plot!(𝔼n₂, color = :black, label = L"\frac{\beta_2}{1+\beta_2}\cdot |S \backslash (Y_1)_{\oplus R}|", ls = :dash)
+xlabel!("Iteration")
+
+plot(fig_1_1, fig_1_2, layout = (2,1))
 
 sample_plot = plot(border = :none, aspect_ratio=:equal, legend = :topright)
 scatter!([1.3, -1.3, 0, 0], [0, 0, 1.3, -1.3], alpha = 0., label = "")
